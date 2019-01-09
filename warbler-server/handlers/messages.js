@@ -17,7 +17,7 @@ exports.createMessage = async function(req, res, next) {
   } catch(err) {
     return next(err);
   }
-}
+
 
 exports.getMessage = async function(req, res, next) {
   try {

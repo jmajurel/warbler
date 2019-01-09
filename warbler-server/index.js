@@ -7,14 +7,16 @@ const errorHandler = require('./handlers/error');
 const authRoutes = require('./routes/auth');
 const msgRoutes = require('./routes/messages');
 const { loginRequired, ensureCorrectUser } = require('./middleware/auth');
+const db = require('./models');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8081;
 
 app.use(cors());
 app.use(bodyParser.json());
 
 
 //all my routes here
+//auth routes
 app.use('/api/auth', authRoutes);
 
 app.use(
@@ -23,6 +25,7 @@ app.use(
     ensureCorrectUser,
     msgRoutes);
 
+//message routes
 app.get('/api/messages', loginRequired, async function(req, res, next){
   try {
     let messages = await db.Message.find()
